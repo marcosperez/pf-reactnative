@@ -22,10 +22,11 @@ import {
   List
 } from "native-base";
 import SvgUri from "react-native-svg-uri";
+import { withNavigation,  DrawerItemsProps } from "react-navigation";
 
 interface Props {}
 
-export default class SideBar extends Component<Props> {
+class SideBar extends Component<Props &   DrawerItemsProps> {
   drawer: any;
   closeDrawer() {
     this.drawer._root.close();
@@ -36,6 +37,8 @@ export default class SideBar extends Component<Props> {
   }
 
   render() {
+    const {navigate} = this.props.navigation;
+
     return (
       <Container style={{ backgroundColor: "white" }}>
         <Header style={{ height: 150 }}>
@@ -52,7 +55,15 @@ export default class SideBar extends Component<Props> {
         </Header>
         <Content>
           <List>
-            <ListItem>
+            <ListItem   onPress={() => navigate('Home')}>
+              <Left>
+                <Text>Inicio</Text>
+              </Left>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+            </ListItem>
+            <ListItem onPress={() => navigate('Properties')}>
               <Left>
                 <Text>Propiedades</Text>
               </Left>
@@ -60,7 +71,7 @@ export default class SideBar extends Component<Props> {
                 <Icon name="arrow-forward" />
               </Right>
             </ListItem>
-            <ListItem>
+            <ListItem onPress={() => navigate('Brokers')}>
               <Left>
                 <Text>Inmobiliarias</Text>
               </Left>
@@ -90,3 +101,5 @@ export default class SideBar extends Component<Props> {
     );
   }
 }
+
+export default SideBar

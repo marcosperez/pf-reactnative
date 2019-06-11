@@ -26,31 +26,18 @@ import {
 } from "native-base";
 import SvgUri from "react-native-svg-uri";
 import SideBar from "../SideMenu";
+import AppContainer from "../AppContainer";
+import { withNavigation, NavigationScreenProps } from "react-navigation";
 
 interface Props {}
 
-export default class Layout extends Component<Props> {
-  drawer: any;
-  closeDrawer() {
-    this.drawer._root.close();
-  }
-
-  openDrawer() {
-    this.drawer._root.open();
-  }
+class Layout extends Component<Props  & NavigationScreenProps<any>> {
 
   render() {
     return (
       <Container>
-        <Drawer
-          ref={ref => {
-            this.drawer = ref;
-          }}
-          content={<SideBar />}
-          onClose={() => this.closeDrawer()}
-        >
           <Header>
-            <Left>
+            <Left >
               <SvgUri
                 fill={"#ffffff"}
                 width="150"
@@ -65,11 +52,13 @@ export default class Layout extends Component<Props> {
             </Body>
             <Right>
               <Button transparent>
-                <Icon name="menu" onPress={() => this.openDrawer()} />
+                <Icon name="menu" onPress={() => this.props.navigation.toggleDrawer()} />
               </Button>
             </Right>
           </Header>
-          <Content />
+          <Content>
+            { this.props.children}
+          </Content>
           <Footer>
             <FooterTab>
               <Button full>
@@ -77,8 +66,9 @@ export default class Layout extends Component<Props> {
               </Button>
             </FooterTab>
           </Footer>
-        </Drawer>
       </Container>
     );
   }
 }
+ 
+export default withNavigation(Layout)
