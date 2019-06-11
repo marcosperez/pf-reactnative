@@ -9,18 +9,18 @@
  */
 
 import React, { Component } from "react";
-import { Container, Text } from "native-base";
-import Layout from "./src/components/Layout";
+import { Container } from "native-base";
+import AppContainer from "./src/components/AppContainer";
+// import Layout from "./src/components/Layout";
 
 interface Props {}
 
 export default class App extends Component<Props> {
   render() {
-    debugger;
+    
     return (
       <Container>
-        <Layout />
-        {/* <Text>asdasds</Text> */}
+        <AppContainer />
       </Container>
     );
   }
